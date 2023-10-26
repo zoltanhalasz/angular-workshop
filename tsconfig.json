@@ -20,7 +20,8 @@
       "es2018",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "esModuleInterop": true
   },
   "exclude": [
     // Exclude Cypress here so the Jasmine types are not overwritten
@@ -31,5 +32,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "types": ["jest"]
 }
