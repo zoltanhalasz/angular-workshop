@@ -52,7 +52,7 @@ const mockCounterApiError: PartialCounterApiService = {
 };
 
 function setup(actions: Action[], counterApi: PartialCounterApiService): CounterEffects {
-  spyOn(counterApi, 'saveCounter').and.callThrough();
+  jest.spyOn(counterApi, 'saveCounter');
 
   TestBed.configureTestingModule({
     providers: [

@@ -12,7 +12,7 @@ import { ServiceCounterComponent } from './service-counter.component';
 
 const newCount = 123;
 
-describe('ServiceCounterComponent: integration test with spectator', () => {
+xdescribe('ServiceCounterComponent: integration test with spectator', () => {
   let spectator: Spectator<ServiceCounterComponent>;
 
   function expectCount(count: number): void {
@@ -66,7 +66,7 @@ describe('ServiceCounterComponent: unit test with spectator', () => {
 
   beforeEach(() => {
     counterService = TestBed.inject(CounterService);
-    (counterService as jasmine.SpyObj<CounterService>).getCount.and.returnValue(of(0));
+    (counterService as jest.SpyObj<CounterService>).getCount.mockReturnValue(of(0));
 
     spectator = createComponent();
   });

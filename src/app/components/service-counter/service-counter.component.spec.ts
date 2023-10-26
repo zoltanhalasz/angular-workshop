@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 import { CounterService } from '../../services/counter.service';
 import { click, expectText, setFieldValue } from '../../spec-helpers/element.spec-helper';
 import { ServiceCounterComponent } from './service-counter.component';
+import { MockService } from 'ng-mocks';
 
 describe('ServiceCounterComponent: integration test', () => {
   let fixture: ComponentFixture<ServiceCounterComponent>;
@@ -53,12 +54,7 @@ describe('ServiceCounterComponent: unit test', () => {
 
   beforeEach(async () => {
     // Create fake
-    fakeCounterService = jasmine.createSpyObj<CounterService>('CounterService', {
-      getCount: of(currentCount),
-      increment: undefined,
-      decrement: undefined,
-      reset: undefined,
-    });
+    fakeCounterService =   MockService(CounterService)
 
     await TestBed.configureTestingModule({
       declarations: [ServiceCounterComponent],
@@ -87,7 +83,7 @@ describe('ServiceCounterComponent: unit test', () => {
 
   it('resets the count', () => {
     const newCount = 456;
-    setFieldValue(fixture, 'reset-input', String(newCount));
+    setFieldValue(fixture, 'reset-input', newCount+'');
     click(fixture, 'reset-button');
     expect(fakeCounterService.reset).toHaveBeenCalledWith(newCount);
   });
@@ -119,10 +115,10 @@ describe('ServiceCounterComponent: unit test with minimal Service logic', () => 
         fakeCount$.next(Number(newCount));
       },
     };
-    spyOn(fakeCounterService, 'getCount').and.callThrough();
-    spyOn(fakeCounterService, 'increment').and.callThrough();
-    spyOn(fakeCounterService, 'decrement').and.callThrough();
-    spyOn(fakeCounterService, 'reset').and.callThrough();
+    jest.spyOn(fakeCounterService, 'getCount');
+    jest.spyOn(fakeCounterService, 'increment');
+    jest.spyOn(fakeCounterService, 'decrement');
+    jest.spyOn(fakeCounterService, 'reset');
 
     await TestBed.configureTestingModule({
       declarations: [ServiceCounterComponent],

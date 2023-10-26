@@ -35,7 +35,7 @@ describe('HomeComponent', () => {
     });
 
     it('listens for count changes', () => {
-      spyOn(console, 'log');
+      jest.spyOn(console, 'log').mockImplementation(() => {});
       const el = findComponent(fixture, 'app-counter');
       const count = 5;
       el.triggerEventHandler('countChange', 5);
